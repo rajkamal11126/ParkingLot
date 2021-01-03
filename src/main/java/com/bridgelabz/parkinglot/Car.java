@@ -3,12 +3,12 @@ package com.bridgelabz.parkinglot;
 import java.time.LocalDateTime;
 
 public class Car {
-	String carNumber;
-    String ownerName;
-    String color;
-    String modelName;
-    LocalDateTime parkingTime;
-    int parkingLotNumber;
+	private String carNumber;
+    private String ownerName;
+    private String color;
+    private String modelName;
+    private LocalDateTime parkingTime;
+    private int parkingLotNumber;
 
     public Car(Integer parkingLotNumber, String carNumber, String ownerName, String color, String modelName, LocalDateTime parkingTime) {
         this.carNumber = carNumber;
@@ -46,6 +46,10 @@ public class Car {
 
     public Car getCarDetails() {
         return new Car(parkingLotNumber, carNumber, ownerName, color, modelName, parkingTime);
+    }
+    
+    public String getCarNumber() {
+        return carNumber;
     }
 
     @Override
