@@ -2,21 +2,14 @@ package com.bridgelabz.parkinglottest;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
 
 import com.bridgelabz.parkinglot.Car;
 import com.bridgelabz.parkinglot.ParkingLot;
 import com.bridgelabz.parkinglot.ParkingLotException;
-import com.bridgelabz.parkinglot.ParkingLotRepository;
-import static org.mockito.Mockito.when;
 
-public class ParkingLotTest {
+public class ParkingLotRepositoryTest {
 	Car[] carDetails = new Car[5];
-
     @Before
     public void setup() {
         for (int i = 0; i < 5; i++) {
@@ -28,29 +21,19 @@ public class ParkingLotTest {
                     .getCarDetails();
         }
     }
-    
-    @Mock
-    ParkingLotRepository parkingLotRepository;
-    
-    @Rule
-    public MockitoRule mockitoRule = new MockitoJUnit().rule();
-    
     @Test
     public void whenVehicleArrives_shouldParkInLot() {
-        ParkingLot parkingLot = new ParkingLot(carDetails, parkingLotRepository);
-        when(parkingLotRepository.getVehicleParked(carDetails)).thenReturn(true);
+        ParkingLot parkingLot = new ParkingLot(carDetails);
         boolean carParkStatus = parkingLot.parkVehicle();
         Assert.assertTrue(carParkStatus);
     }
 
     @Test
     public void whenDriverArrives_shouldUnparkVehicle() {
-        ParkingLot parkingLot = new ParkingLot(carDetails, parkingLotRepository);
+        ParkingLot parkingLot = new ParkingLot(carDetails);
         boolean carParkStatus = parkingLot.parkVehicle();
-        when(parkingLotRepository.getVehicleUnparked("ABC 1")).thenReturn(true);
         boolean carUnParkStatus = parkingLot.unparkVehicle("ABC 1");
         Assert.assertTrue(carUnParkStatus);
-
     }
 
     @Test
@@ -58,7 +41,6 @@ public class ParkingLotTest {
         try {
             ParkingLot parkingLot = new ParkingLot(carDetails);
             boolean carParkStatus = parkingLot.parkVehicle();
-            when(parkingLotRepository.getVehicleUnparked("ABC 12")).thenThrow(new ParkingLotException("Enter valid Car number", ParkingLotException.ExceptionType.NO_SUCH_CAR_NUMBER));
             boolean carUnParkStatus = parkingLot.unparkVehicle("ABC 12");
         } catch (ParkingLotException e) {
             Assert.assertEquals(ParkingLotException.ExceptionType.NO_SUCH_CAR_NUMBER, e.type);
