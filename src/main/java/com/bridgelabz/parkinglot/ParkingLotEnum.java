@@ -1,5 +1,6 @@
 package com.bridgelabz.parkinglot;
 
-public enum ParkingLotStatus {
+public enum ParkingLotEnum {
 	NOT_FULL, FULL
+
 }
