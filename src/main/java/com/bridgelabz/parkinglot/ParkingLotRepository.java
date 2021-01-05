@@ -3,6 +3,8 @@ package com.bridgelabz.parkinglot;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.bridgelabz.parkinglot.ParkingLot.ParkingLotStatus;
+
 public class ParkingLotRepository {
 	static Map<String, Car> parkedCars = new HashMap<>();
 
@@ -11,8 +13,8 @@ public class ParkingLotRepository {
 			if (parkedCars.size() < 100)
 				parkedCars.put(carDetails[i].getCarNumber(), carDetails[i]);
 			else {
-				ParkingLot.parkingLotStatus = ParkingLot.ParkingLotStatus.FULL;
-				ParkingLot.securityStatus = SecurityStatus.FULL;
+				ParkingLot.ownerParkingLotStatus = ParkingLotStatus.FULL;
+                ParkingLot.securityStatus = ParkingLotStatus.FULL;
 			}
 		return true;
 	}

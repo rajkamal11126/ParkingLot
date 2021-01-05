@@ -6,8 +6,9 @@ import org.junit.Test;
 
 import com.bridgelabz.parkinglot.Car;
 import com.bridgelabz.parkinglot.ParkingLot;
+import com.bridgelabz.parkinglot.ParkingLot.ParkingLotStatus;
 import com.bridgelabz.parkinglot.ParkingLotException;
-import com.bridgelabz.parkinglot.SecurityStatus;
+
 
 public class ParkingLotRepositoryTest {
 	Car[] carDetails = new Car[101];
@@ -55,7 +56,7 @@ public class ParkingLotRepositoryTest {
                 .getCarDetails();
         ParkingLot parkingLot = new ParkingLot(carDetails);
         boolean carParkStatus = parkingLot.getVehicleParkedUnparked();
-        Assert.assertEquals(ParkingLot.parkingLotStatus, ParkingLot.ParkingLotStatus.FULL);
+        Assert.assertEquals(ParkingLotStatus.FULL, ParkingLot.ParkingLotStatus.FULL);
     }
     @Test
     public void whenParkingLotStatusFull_shouldSetSecurityStaffStatusFull() {
@@ -67,6 +68,6 @@ public class ParkingLotRepositoryTest {
                 .getCarDetails();
         ParkingLot parkingLot = new ParkingLot(carDetails);
         boolean carParkStatus = parkingLot.getVehicleParkedUnparked();
-        Assert.assertEquals(SecurityStatus.FULL, ParkingLot.securityStatus);
+        Assert.assertEquals(ParkingLotStatus.FULL, ParkingLot.securityStatus);
     }
 }

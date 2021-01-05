@@ -3,8 +3,8 @@ package com.bridgelabz.parkinglot;
 public class ParkingLot {
 	private Car[] carDetails;
     private ParkingLotRepository parkingLotRepository = new ParkingLotRepository();
-    public static ParkingLotStatus parkingLotStatus = ParkingLotStatus.NOT_FULL;
-    public static SecurityStatus securityStatus = SecurityStatus.NOT_FULL;
+    public static ParkingLotStatus ownerParkingLotStatus = ParkingLotStatus.NOT_FULL;
+    public static ParkingLotStatus securityStatus = ParkingLotStatus.NOT_FULL;
     
     public enum ParkingLotStatus{
         NOT_FULL, FULL
