@@ -10,8 +10,10 @@ public class ParkingLotRepository {
 		for (int i = 0; i < carDetails.length; i++)
 			if (parkedCars.size() < 100)
 				parkedCars.put(carDetails[i].getCarNumber(), carDetails[i]);
-			else
-				ParkingLot.parkingLotStatus = "FULL";
+			else {
+				ParkingLot.parkingLotStatus = ParkingLot.ParkingLotStatus.FULL;
+				ParkingLot.securityStatus = SecurityStatus.FULL;
+			}
 		return true;
 	}
 

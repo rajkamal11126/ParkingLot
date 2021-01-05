@@ -7,13 +7,13 @@ import org.junit.Test;
 import com.bridgelabz.parkinglot.Car;
 import com.bridgelabz.parkinglot.ParkingLot;
 import com.bridgelabz.parkinglot.ParkingLotException;
+import com.bridgelabz.parkinglot.SecurityStatus;
 
 public class ParkingLotRepositoryTest {
 	Car[] carDetails = new Car[101];
-	
     @Before
     public void setup() {
-        for (int i = 0; i < 101; i++) {
+        for (int i = 0; i < 100; i++) {
             carDetails[i] = new Car()
                     .setCarNumber("ABC " + (i+1))
                     .setColor("Black")
@@ -25,24 +25,22 @@ public class ParkingLotRepositoryTest {
     @Test
     public void whenVehicleArrives_shouldParkInLot() {
         ParkingLot parkingLot = new ParkingLot(carDetails);
-        boolean carParkStatus = parkingLot.parkVehicle();
+        boolean carParkStatus = parkingLot.getVehicleParkedUnparked();
         Assert.assertTrue(carParkStatus);
     }
-
     @Test
     public void whenDriverArrives_shouldUnparkVehicle() {
         ParkingLot parkingLot = new ParkingLot(carDetails);
-        boolean carParkStatus = parkingLot.parkVehicle();
-        boolean carUnParkStatus = parkingLot.unparkVehicle("ABC 1");
+        boolean carParkStatus = parkingLot.getVehicleParkedUnparked();
+        boolean carUnParkStatus = parkingLot.getVehicleParkedUnparked("ABC 1");
         Assert.assertTrue(carUnParkStatus);
     }
-
     @Test
     public void whenGivenInvalidCarNumber_shouldThrowException() {
         try {
             ParkingLot parkingLot = new ParkingLot(carDetails);
-            boolean carParkStatus = parkingLot.parkVehicle();
-            boolean carUnParkStatus = parkingLot.unparkVehicle("ABC 12");
+            boolean carParkStatus = parkingLot.getVehicleParkedUnparked();
+            boolean carUnParkStatus = parkingLot.getVehicleParkedUnparked("ABC 12");
         } catch (ParkingLotException e) {
             Assert.assertEquals(ParkingLotException.ExceptionType.NO_SUCH_CAR_NUMBER, e.type);
         }
@@ -57,6 +55,18 @@ public class ParkingLotRepositoryTest {
                 .getCarDetails();
         ParkingLot parkingLot = new ParkingLot(carDetails);
         boolean carParkStatus = parkingLot.getVehicleParkedUnparked();
-        Assert.assertEquals(ParkingLot.parkingLotStatus, "FULL");
+        Assert.assertEquals(ParkingLot.parkingLotStatus, ParkingLot.ParkingLotStatus.FULL);
+    }
+    @Test
+    public void whenParkingLotStatusFull_shouldSetSecurityStaffStatusFull() {
+        carDetails[carDetails.length-1] = new Car()
+                .setCarNumber("ABC 101")
+                .setColor("Black")
+                .setModelName("CarModel 101")
+                .setOwnerName("ABC's 101")
+                .getCarDetails();
+        ParkingLot parkingLot = new ParkingLot(carDetails);
+        boolean carParkStatus = parkingLot.getVehicleParkedUnparked();
+        Assert.assertEquals(SecurityStatus.FULL, ParkingLot.securityStatus);
     }
 }

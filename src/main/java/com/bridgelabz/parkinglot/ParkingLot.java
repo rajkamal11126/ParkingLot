@@ -3,7 +3,12 @@ package com.bridgelabz.parkinglot;
 public class ParkingLot {
 	private Car[] carDetails;
     private ParkingLotRepository parkingLotRepository = new ParkingLotRepository();
-    public static String parkingLotStatus = "HALF";
+    public static ParkingLotStatus parkingLotStatus = ParkingLotStatus.NOT_FULL;
+    public static SecurityStatus securityStatus = SecurityStatus.NOT_FULL;
+    
+    public enum ParkingLotStatus{
+        NOT_FULL, FULL
+    }
     
     public ParkingLot(Car[] carDetails) {
         this.carDetails = carDetails;
@@ -13,11 +18,11 @@ public class ParkingLot {
         this.carDetails = carDetails;
         this.parkingLotRepository = parkingLotRepository;
     }
-    public boolean parkVehicle() {
-        return parkingLotRepository.getVehicleParked(carDetails);
+
+    public boolean getVehicleParkedUnparked(String... carNumber){
+        if (carNumber.length == 0)
+            return parkingLotRepository.getVehicleParked(carDetails);
+        return parkingLotRepository.getVehicleUnparked(carNumber[0]);
     }
 
-    public boolean unparkVehicle(String carNumber) {
-        return parkingLotRepository.getVehicleUnparked(carNumber);
-    }
 }
