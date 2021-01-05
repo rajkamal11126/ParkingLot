@@ -24,5 +24,4 @@ public class ParkingLot {
             return parkingLotRepository.getVehicleParked(carDetails);
         return parkingLotRepository.getVehicleUnparked(carNumber[0]);
     }
-
 }
